@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="simulation_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="simulation" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="180000000fs"></ZoomStartTime>
+      <ZoomEndTime time="726000001fs"></ZoomEndTime>
+      <Cursor1Time time="391000000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="129"></NameColumnWidth>
+      <ValueColumnWidth column_width="80"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="30" />
+   <wvobject fp_name="/simulation/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/writedata" type="array">
+      <obj_property name="ElementShortName">writedata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">writedata[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/dataadr" type="array">
+      <obj_property name="ElementShortName">dataadr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataadr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/memwrite" type="logic">
+      <obj_property name="ElementShortName">memwrite</obj_property>
+      <obj_property name="ObjectShortName">memwrite</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcreg/flopenr_d" type="array">
+      <obj_property name="ElementShortName">flopenr_d[31:0]</obj_property>
+      <obj_property name="ObjectShortName">flopenr_d[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcreg/flopenr_q" type="array">
+      <obj_property name="ElementShortName">flopenr_q[31:0]</obj_property>
+      <obj_property name="ObjectShortName">flopenr_q[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcreg/WIDTH" type="array">
+      <obj_property name="ElementShortName">WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/instr" type="array">
+      <obj_property name="ElementShortName">instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcen" type="logic">
+      <obj_property name="ElementShortName">pcen</obj_property>
+      <obj_property name="ObjectShortName">pcen</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcnext" type="array">
+      <obj_property name="ElementShortName">pcnext[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pcnext[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcmux/mux3_d0" type="array">
+      <obj_property name="ElementShortName">mux3_d0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mux3_d0[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcmux/mux3_d1" type="array">
+      <obj_property name="ElementShortName">mux3_d1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mux3_d1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcmux/mux3_d2" type="array">
+      <obj_property name="ElementShortName">mux3_d2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mux3_d2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcmux/mux3_s" type="array">
+      <obj_property name="ElementShortName">mux3_s[1:0]</obj_property>
+      <obj_property name="ObjectShortName">mux3_s[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcmux/mux3_y" type="array">
+      <obj_property name="ElementShortName">mux3_y[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mux3_y[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcmux/WIDTH" type="array">
+      <obj_property name="ElementShortName">WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/alu/alu_a" type="array">
+      <obj_property name="ElementShortName">alu_a[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_a[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/alu/alu_b" type="array">
+      <obj_property name="ElementShortName">alu_b[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_b[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/alu/alu_control" type="array">
+      <obj_property name="ElementShortName">alu_control[2:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_control[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/alu/alu_y" type="array">
+      <obj_property name="ElementShortName">alu_y[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_y[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/alu/zero" type="logic">
+      <obj_property name="ElementShortName">zero</obj_property>
+      <obj_property name="ObjectShortName">zero</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/controller/maindec/state" type="array">
+      <obj_property name="ElementShortName">state[4:0]</obj_property>
+      <obj_property name="ObjectShortName">state[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mips/datapath/pcsrc" type="array">
+      <obj_property name="ElementShortName">pcsrc[1:0]</obj_property>
+      <obj_property name="ObjectShortName">pcsrc[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/we" type="logic">
+      <obj_property name="ElementShortName">we</obj_property>
+      <obj_property name="ObjectShortName">we</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/a" type="array">
+      <obj_property name="ElementShortName">a[31:0]</obj_property>
+      <obj_property name="ObjectShortName">a[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/wd" type="array">
+      <obj_property name="ElementShortName">wd[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wd[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/rd" type="array">
+      <obj_property name="ElementShortName">rd[31:0]</obj_property>
+      <obj_property name="ObjectShortName">rd[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/simulation/top/mem/RAM" type="array">
+      <obj_property name="ElementShortName">RAM[63:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">RAM[63:0][31:0]</obj_property>
+   </wvobject>
+</wave_config>
