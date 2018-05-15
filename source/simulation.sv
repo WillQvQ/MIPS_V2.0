@@ -7,8 +7,9 @@ module simulation();
     logic       memwrite;
     logic [31:0]datapc;
     logic [9:0] cnt;
+    logic [7:0] pclow;
 
-    top top(clk, reset, writedata, dataadr, memwrite, readdata);
+    top top(clk, reset, writedata, dataadr, memwrite, readdata,pclow);
     
     initial begin
         cnt <= 7'b0;

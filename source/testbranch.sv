@@ -1,27 +1,34 @@
 `timescale 1ns / 1ps
 
 module testbench(
-    input   logic 	reset,clken,
+    input   logic 	reset,clken,show,
     input   logic 	CLK100MHZ,
     output  logic 	[6:0]seg,
     output  logic 	[7:0]an,
-    output  logic 	[5:0]pclow
+    output  logic 	[7:0]clks
 );
 	logic clk,CLK380,CLK48,CLK04;
 
 	logic [31:0]writedata, dataadr;
 	logic       memwrite;
-	logic [31:0]datapc;
+	logic [31:0]readdata;
 	logic [2:0]cnt;
 	logic [3:0]digit;   
 	logic [31:0]data;   
 	logic [31:0]datamem;
+	logic [4:0] state;
+	logic [31:0]showdata;
+	logic [7:0] pclow;
 	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK04);
 	assign clk = CLK04 & clken;
-	top top(clk, reset, writedata, dataadr, memwrite, datapc, pclow);
-	assign data = memwrite?datamem:datapc;
+	top top(clk, reset, writedata, dataadr, memwrite, readdata, pclow, state);
+	assign showdata = show ? readdata:{16'b0,pclow,3'b0,state};
+	assign data = memwrite?datamem:showdata;
 	initial cnt=2'b0;
-	initial datamem=32'b0;
+    initial datamem=32'b0;
+    initial clks=8'b0;
+    always@(posedge clk)
+        clks <= clks + 1;
 	always@(posedge CLK380)  
 		begin  
 			if (memwrite) begin
@@ -57,7 +64,7 @@ module testbench(
 				10:seg=  7'b0001000;
 				11:seg=  7'b0000011;
 				12:seg=  7'b1000110;
-				13:seg=  7'b0010001;
+				13:seg=  7'b0100001;
 				14:seg=  7'b0000110;
 				15:seg=  7'b0001110;
 				default:seg=7'b1111110;  

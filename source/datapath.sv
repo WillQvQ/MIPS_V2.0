@@ -12,7 +12,8 @@ module datapath #(parameter N = 32, I = 16 ,B = 8)(
     output  logic [5:0] op, funct,
     output  logic       zero,
     output  logic [N-1:0]dataadr, writedata,
-    input   logic [N-1:0]readdata
+    input   logic [N-1:0]readdata,
+    output  logic [7:0]  pclow
 );
     // Internal signals of the datapath module
     logic [4:0]     writereg;
@@ -29,6 +30,7 @@ module datapath #(parameter N = 32, I = 16 ,B = 8)(
     // op and funct fields to controller
     assign op = instr[N-1:26];
     assign funct = instr[5:0];
+    assign pclow = pc[9:2];
     // datapath
     flopenr #(N)    pcreg(clk, reset, pcen, pcnext, pc);
     mux2 #(N)       adrmux(pc, aluout, iord, dataadr);
