@@ -1,5 +1,4 @@
 # MIPS_V2.0——多周期32位CPU
-姓名 学号
 
 [TOC]
 
@@ -17,6 +16,8 @@
 4. 统一了数据存储器和指令存储器，实现了数据和指令的混合存储（详见 **<六、存储器设计>**）
 5. 使用$display(),$stop等命令，与波形图相结合进行仿真（详见 **<七、测试>**）
 6. 在Nexys4实验板上实现了：显示当前周期、显示当前阶段、查看任意内存、任意寄存器和随时暂停程序等全面的演示功能（详见 **<八、演示设计>**）
+
+<div STYLE="page-break-after: always;"></div>
 
 ### 三、项目文件
 
@@ -41,8 +42,8 @@ simulation_behav.wcfg	仿真波形图配置文件
 alu.sv				ALU计算单元
 aludec.sv 			ALU控制单元，用于输出alucontrol信号
 clkdiv.sv 			时钟分频模块模块，用于演示
-controller.sv 			mips的控制单元，包含maindec和aludec两部分
-datapath.sv 			数据通路，mips的核心结构
+controller.sv 		mips的控制单元，包含maindec和aludec两部分
+datapath.sv 		数据通路，mips的核心结构
 flopenr.sv 			时钟控制的可复位触发寄存器
 flopr.sv 			可复位触发寄存器
 maindec.sv 			主控单元
@@ -55,11 +56,13 @@ mux5.sv 			5:1复用器
 onboard.sv			在Nexys4实验板上测试的顶层模块
 regfile.sv	 		寄存器文件
 signext.sv 			符号拓展模块
-simulation.sv 			仿真时使用的顶层模块
+simulation.sv 		仿真时使用的顶层模块
 sl2.sv 				左移2位
 top.sv 				包含mips和内存的顶层模块
 zeroext.sv 			零拓展模块
 ```
+
+<div STYLE="page-break-after: always;"></div>
 
 ### 四、状态机设计
 
@@ -84,7 +87,7 @@ zeroext.sv 			零拓展模块
 对于每个状态，我设计了21位的控制信号输出，他们分别是：
 
 ```
-memwrite[1:0]		写存储器的类型，0表示不写，1表示写Word，2表示写Byte
+memwrite[1:0]	写存储器的类型，0表示不写，1表示写Word，2表示写Byte
 pcwrite			用于计算pcen，pcen最后决定是否更新pc
 irwrite			决定从存储器读出的数据是否当作指令进行译码
 regwrite		是否写寄存器
@@ -93,12 +96,14 @@ branch			是否分支,用于计算pcen
 iord			决定了从存储器读出的为指令还是数据
 memtoreg		是否有从存储器到寄存器的数据存储
 regdst			是否为R类指令
-bne			是否为bne指令,用于计算pcen
-alusrcb[2:0]		决定ALU的第二个运算数
+bne				是否为bne指令,用于计算pcen
+alusrcb[2:0]	决定ALU的第二个运算数
 pcsrc[1:0]		决定下一个pc的计算方式
 aluop[2:0]		决定了alu计算的方式，传给aludec进行具体的控制
 ltype[1:0]		读存储器的类型，0表示Word，1表示写Byte，2表示写UnsignedByte
 ```
+
+<div STYLE="page-break-after: always;"></div>
 
 pcen的计算方式如下（其中zero表示ALU的计算结果是否为0）：
 
@@ -147,6 +152,8 @@ maindec.sv
 aludec.sv
 ```
 
+<div STYLE="page-break-after: always;"></div>
+
 ### 五、数据通路设计
 
 ![BaseOne](/images/BaseOne.png)
@@ -173,8 +180,6 @@ mux5 #(N)       srcbmux(writedata, 32'b100, signimm, signimmsh, zeroimm, alusrcb
 
 ```verilog
 /*datapath.sv*/
-mux4 #(B)       lbmux(readdata[N-1:24], readdata[23:16], readdata[15:8],
-                        readdata[7:0], aluout[1:0], mbyte);
 zeroext #(B,N)  lbze(mbyte, mbytezext);
 signext #(B,N)  lbse(mbyte, mbytesext);
 mux3 #(N)       datamux(readdata, mbytezext, mbytesext, ltype, memdata);
@@ -280,6 +285,8 @@ module mem#(parameter N = 32, L = 256)(
 endmodule
 ```
 
+<div STYLE="page-break-after: always;"></div>
+
 ### 七、测试
 
 我设计了三个程序，结合书上的程序进行测试，他们的大致内容如下，具体代码见test文件夹：
@@ -323,15 +330,15 @@ testls.s的部分波形图如下，可以看到程序读出了存储器中下标
 
 ![Simulation2](/images/Simulation2.png)
 
-做完仿真测试之后，我对工程进行Synthesis和Implementation，最终生成二进制文件。工程的资源占用情况如下：
-
-![UtilizationGraph](/images/UtilizationGraph.png)
-
-![UtilizationTable](/images/UtilizationTable.png)
-
-时钟情况如下：
+做完仿真测试之后，我对工程进行Synthesis和Implementation，最终生成二进制文件。时钟情况如下：
 
 ![Timing](/images/Timing.png)
+
+工程的资源占用情况如下：
+
+![UtilizationGraph](C:/Users/will131/Documents/workspace/MIPS_V2.0/images/UtilizationGraph.png)
+
+![UtilizationTable](C:\Users\will131\Documents\workspace\MIPS_V2.0\images\UtilizationTable.png)
 
 ### 八、演示设计
 
