@@ -3,30 +3,28 @@ LED高八位：CLK的总数
 开关从右向左
 SW0 向上向下->初始化
 SW1 下是暂停，上是开启
-SW2 上是显示内存值，下是显示PC、状态和寄存器
+SW2 上是显示存储器的值，下是显示寄存器、PC和状态
 SW3 上是四倍速，下是常速
 
-S8-S15 用于检查的寄存器的地址
+S8-S15 用于检查的寄存器/存储器的地址
 
 状态对应表
-00  FETCH
-01  DECODE
-02  MEMADR
-03  MEMRD
-04  MEMWB
-05  MEMWR
-06  RTYPEEX
-07  RTYPEWB
-08  BEQEX
-09  ADDIEX
-0A  ADDIWB
-0b  JEX
-0C  ANDIEX
-0d  ANDIWB
-0E  BNEEX
-0F  LBURD
-10  LBRD
-11  ORIEX
-12  ORIWB
-13  SLTIEX
-14  SLTIWB
+00  IF
+01  ID
+02  EX_LS
+03  MEM_LW
+04  WB_L
+05  MEM_SW
+06  EX_RTYPE
+07  WB_RTYPE
+08  EX_BEQ
+09  EX_ADDI
+0a  EX_J
+0b  EX_ANDI
+0c  EX_BNE
+0d  MEM_LBU
+0e  MEM_LB
+0f  EX_ORI
+10  EX_SLTI
+11  MEM_SB
+12  WB_I

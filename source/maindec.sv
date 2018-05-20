@@ -17,9 +17,8 @@ module maindec(
 ); 
     typedef enum logic [4:0] {IF, ID, EX_LS,
             MEM_LW, WB_L, MEM_SW, EX_RTYPE, WB_RTYPE, EX_BEQ,
-            EX_ADDI, WB_ADDI, EX_J, EX_ANDI, WB_ANDI,
-            EX_BNE, MEM_LBU, MEM_LB, EX_ORI, WB_ORI,
-            EX_SLTI, WB_SLTI, MEM_SB} statetype;
+            EX_ADDI, EX_J, EX_ANDI, EX_BNE, MEM_LBU, MEM_LB, 
+            EX_ORI, EX_SLTI, MEM_SB, WB_I} statetype;
     statetype state, nextstate;
     assign stateshow = state;
     parameter RTYPE = 6'b000000;
@@ -79,14 +78,11 @@ module maindec(
             EX_BEQ:     nextstate <= IF;
             EX_BNE:     nextstate <= IF;
             EX_J:       nextstate <= IF;
-            EX_ADDI:    nextstate <= WB_ADDI;
-            WB_ADDI:    nextstate <= IF;
-            EX_ANDI:    nextstate <= WB_ANDI; 
-            WB_ANDI:    nextstate <= IF; 
-            EX_ORI:     nextstate <= WB_ORI;
-            WB_ORI:     nextstate <= IF;
-            EX_SLTI:    nextstate <= WB_SLTI;
-            WB_SLTI:    nextstate <= IF; 
+            EX_ADDI:    nextstate <= WB_I;
+            EX_ANDI:    nextstate <= WB_I; 
+            EX_ORI:     nextstate <= WB_I;
+            EX_SLTI:    nextstate <= WB_I;
+            WB_I:       nextstate <= IF; 
             default:    nextstate <= IF;
         endcase
     assign {memwrite, pcwrite, irwrite, regwrite,
@@ -109,13 +105,10 @@ module maindec(
             EX_BNE:     controls <= 21'b00_000_10000_1_000_01_001_00;
             EX_J:       controls <= 21'b00_100_00000_0_000_10_000_00;
             EX_ADDI:    controls <= 21'b00_000_10000_0_010_00_000_00;
-            WB_ADDI:    controls <= 21'b00_001_00000_0_000_00_000_00;
             EX_ANDI:    controls <= 21'b00_000_10000_0_100_00_011_00; 
-            WB_ANDI:    controls <= 21'b00_001_00000_0_000_00_000_00; 
             EX_ORI:     controls <= 21'b00_000_10000_0_100_00_100_00; 
-            WB_ORI:     controls <= 21'b00_001_00000_0_000_00_000_00; 
             EX_SLTI:    controls <= 21'b00_000_10000_0_010_00_101_00; 
-            WB_SLTI:    controls <= 21'b00_001_00000_0_000_00_000_00; 
+            WB_I:       controls <= 21'b00_001_00000_0_000_00_000_00;
             default:    controls <= 21'b00_000_xxxxx_x_xxx_xx_xxx_xx;
         endcase
 endmodule
