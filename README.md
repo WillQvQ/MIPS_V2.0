@@ -336,9 +336,9 @@ testls.s的部分波形图如下，可以看到程序读出了存储器中下标
 
 工程的资源占用情况如下：
 
-![UtilizationGraph](C:/Users/will131/Documents/workspace/MIPS_V2.0/images/UtilizationGraph.png)
+![UtilizationGraph](/images/UtilizationGraph.png)
 
-![UtilizationTable](C:\Users\will131\Documents\workspace\MIPS_V2.0\images\UtilizationTable.png)
+![UtilizationTable](/images/UtilizationTable.png)
 
 ### 八、演示设计
 
