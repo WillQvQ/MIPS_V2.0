@@ -8,8 +8,11 @@ module simulation();
     logic [31:0]datapc;
     logic [9:0] cnt;
     logic [7:0] pclow;
-
-    top top(clk, reset, writedata, dataadr, memwrite, readdata,pclow);
+    logic [7:0] addr;
+    logic [4:0] checka;
+    logic [31:0]check;
+    logic [31:0]memdata;
+    top top(clk, reset, writedata, dataadr, memwrite, readdata,pclow, state,checka,check,addr,memdata);
     
     initial begin
         cnt <= 7'b0;

@@ -1,13 +1,14 @@
 `timescale 1ns / 1ps
 
-module testbench(
-    input   logic 	reset,clken,show,
+module onboard(
+    input   logic 	reset,clken,show,quick,
     input   logic 	CLK100MHZ,
+    input   logic   [7:0]addr,
     output  logic 	[6:0]seg,
     output  logic 	[7:0]an,
     output  logic 	[7:0]clks
 );
-	logic clk,CLK380,CLK48,CLK04;
+	logic clk,CLK380,CLK48,CLK04,CLK1_6,clkrun;
 
 	logic [31:0]writedata, dataadr;
 	logic       memwrite;
@@ -19,22 +20,40 @@ module testbench(
 	logic [4:0] state;
 	logic [31:0]showdata;
 	logic [7:0] pclow;
-	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK04);
-	assign clk = CLK04 & clken;
-	top top(clk, reset, writedata, dataadr, memwrite, readdata, pclow, state);
-	assign showdata = show ? readdata:{16'b0,pclow,3'b0,state};
+	logic [4:0] stateout;
+    logic [4:0] checka;
+    logic [31:0]check;
+	logic [31:0]memdata;
+	clkdiv clkdiv(CLK100MHZ,CLK380,CLK48,CLK1_6,CLK0_4);
+	assign checka = addr[4:0];
+	assign clkrun = quick ? CLK1_6:CLK0_4;
+	assign clk = clkrun & clken;
+	top top(clk, reset, writedata, dataadr, memwrite, readdata, pclow, state,checka,check,addr,memdata);
+	assign showdata = show ? memdata:{addr,check[7:0],pclow,3'b0,stateout};
 	assign data = memwrite?datamem:showdata;
 	initial cnt=2'b0;
     initial datamem=32'b0;
     initial clks=8'b0;
-    always@(posedge clk)
-        clks <= clks + 1;
+    initial stateout=5'b0;
+    always@(posedge clk,posedge reset)
+        begin
+            if (reset)
+                begin
+                    clks <= 8'b0;
+                    stateout <= 5'b0;
+                end
+            else
+                begin 
+                    clks <= clks + 1;
+                    stateout <= state;
+                end
+        end
 	always@(posedge CLK380)  
 		begin  
 			if (memwrite) begin
 				datamem[31:28] = 14;
 				datamem[27:24] = 14;
-				datamem[23:16] = dataadr[7:0];
+				datamem[23:16] = dataadr[9:2];
 				datamem[15:0] = writedata[15:0];
 			end
 			an=8'b11111111;   

@@ -6,19 +6,18 @@ module controller(
     input   logic       zero,
     output  logic       pcen, memwrite, irwrite, regwrite,
     output  logic       iord, memtoreg, regdst, alusrca,
-    output  logic [2:0] alusrcb, // ANDI
+    output  logic [2:0] alusrcb,
     output  logic [1:0] pcsrc,
     output  logic [2:0] alucontrol,
-    output  logic [1:0] lb,      // LB/LB
+    output  logic [1:0] lb,
     output  logic [4:0] state
 ); 
     logic [2:0] aluop;
     logic       branch, pcwrite;
-    logic       bne; // BNE
-    // Main Decoder and ALU Decoder subunits.
+    logic       bne; 
     maindec maindec(clk, reset, op, pcwrite, memwrite, 
                 irwrite, regwrite, branch, iord, memtoreg, regdst,
-                alusrca, alusrcb, pcsrc, aluop, bne, lb, state); //BNE, LBU
+                alusrca, alusrcb, pcsrc, aluop, bne, lb, state);
     aludec aludec(funct, aluop, alucontrol);
-    assign pcen = pcwrite | (branch & zero) | (bne & ~zero); // BNE
+    assign pcen = pcwrite | (branch & zero) | (bne & ~zero);
 endmodule
