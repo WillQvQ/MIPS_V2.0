@@ -24,42 +24,42 @@
 根目录（/）
 
 ```
-/bit/			存放各种版本的二进制文件(.bit)
-/test/			存放各种版本的汇编文件(.s)、十六进制文件(.dat)
-/images/		存放实验报告所需的图片(.png)
-/source/		源代码(.sv)
-.gitignore		git配置文件
-memfile.dat		当前使用的十六进制文件
-states.txt		Nexys4实验板演示说明
-README.md		说明文档
-Nexys4DDR_Master.xdc	Nexys4实验板引脚锁定文件
-simulation_behav.wcfg	仿真波形图配置文件
+/bit/                   存放各种版本的二进制文件(.bit)
+/test/                  存放各种版本的汇编文件(.s)、十六进制文件(.dat)
+/images/                存放实验报告所需的图片(.png)
+/source/                源代码(.sv)
+.gitignore              git配置文件
+memfile.dat             当前使用的十六进制文件
+states.txt              Nexys4实验板演示说明
+README.md               说明文档
+Nexys4DDR_Master.xdc    Nexys4实验板引脚锁定文件
+simulation_behav.wcfg   仿真波形图配置文件
 ```
 
 源代码（/source/）
 
 ```
-alu.sv				ALU计算单元
-aludec.sv 			ALU控制单元，用于输出alucontrol信号
-clkdiv.sv 			时钟分频模块模块，用于演示
-controller.sv 		mips的控制单元，包含maindec和aludec两部分
-datapath.sv 		数据通路，mips的核心结构
-flopenr.sv 			时钟控制的可复位触发寄存器
-flopr.sv 			可复位触发寄存器
-maindec.sv 			主控单元
-mem.sv 				指令和数据的混合存储器
-mips.sv				mips处理器的顶层模块
-mux2.sv 			2:1复用器
-mux3.sv 			3:1复用器
-mux4.sv 			4:1复用器
-mux5.sv 			5:1复用器
-onboard.sv			在Nexys4实验板上测试的顶层模块
-regfile.sv	 		寄存器文件
-signext.sv 			符号拓展模块
-simulation.sv 		仿真时使用的顶层模块
-sl2.sv 				左移2位
-top.sv 				包含mips和内存的顶层模块
-zeroext.sv 			零拓展模块
+alu.sv                  ALU计算单元
+aludec.sv               ALU控制单元，用于输出alucontrol信号
+clkdiv.sv               时钟分频模块模块，用于演示
+controller.sv           mips的控制单元，包含maindec和aludec两部分
+datapath.sv             数据通路，mips的核心结构
+flopenr.sv              时钟控制的可复位触发寄存器
+flopr.sv                可复位触发寄存器
+maindec.sv              主控单元
+mem.sv                  指令和数据的混合存储器
+mips.sv                 mips处理器的顶层模块
+mux2.sv                 2:1复用器
+mux3.sv                 3:1复用器
+mux4.sv                 4:1复用器
+mux5.sv                 5:1复用器
+onboard.sv              在Nexys4实验板上测试的顶层模块
+regfile.sv              寄存器文件
+signext.sv              符号拓展模块
+simulation.sv           仿真时使用的顶层模块
+sl2.sv                  左移2位
+top.sv                  包含mips和内存的顶层模块
+zeroext.sv              零拓展模块
 ```
 
 <div STYLE="page-break-after: always;"></div>
@@ -87,20 +87,20 @@ zeroext.sv 			零拓展模块
 对于每个状态，我设计了21位的控制信号输出，他们分别是：
 
 ```
-memwrite[1:0]	写存储器的类型，0表示不写，1表示写Word，2表示写Byte
-pcwrite			用于计算pcen，pcen最后决定是否更新pc
-irwrite			决定从存储器读出的数据是否当作指令进行译码
-regwrite		是否写寄存器
-alusrca			决定ALU的第一个运算数
-branch			是否分支,用于计算pcen
-iord			决定了从存储器读出的为指令还是数据
-memtoreg		是否有从存储器到寄存器的数据存储
-regdst			是否为R类指令
-bne				是否为bne指令,用于计算pcen
-alusrcb[2:0]	决定ALU的第二个运算数
-pcsrc[1:0]		决定下一个pc的计算方式
-aluop[2:0]		决定了alu计算的方式，传给aludec进行具体的控制
-ltype[1:0]		读存储器的类型，0表示Word，1表示写Byte，2表示写UnsignedByte
+memwrite[1:0]       写存储器的类型，0表示不写，1表示写Word，2表示写Byte
+pcwrite             用于计算pcen，pcen最后决定是否更新pc
+irwrite             决定从存储器读出的数据是否当作指令进行译码
+regwrite            是否写寄存器
+alusrca             决定ALU的第一个运算数
+branch              是否分支,用于计算pcen
+iord                决定了从存储器读出的为指令还是数据
+memtoreg            是否有从存储器到寄存器的数据存储
+regdst              是否为R类指令
+bne                 是否为bne指令,用于计算pcen
+alusrcb[2:0]        决定ALU的第二个运算数
+pcsrc[1:0]          决定下一个pc的计算方式
+aluop[2:0]          决定了alu计算的方式，传给aludec进行具体的控制
+ltype[1:0]          读存储器的类型，0表示Word，1表示写Byte，2表示写UnsignedByte
 ```
 
 <div STYLE="page-break-after: always;"></div>
@@ -119,8 +119,8 @@ assign pcen = pcwrite | (branch & zero) | (bne & ~zero);
 assign {memwrite, pcwrite, irwrite, regwrite,
         alusrca, branch, iord, memtoreg, regdst,
         bne, alusrcb, pcsrc, aluop, ltype} = controls; 
-always_comb	
-	case(state)
+always_comb    
+    case(state)
             IF:         controls <= 21'b00_110_00000_0_001_00_000_00;
             ID:         controls <= 21'b00_000_00000_0_011_00_000_00;
             EX_LS:      controls <= 21'b00_000_10000_0_010_00_000_00;
@@ -292,10 +292,10 @@ endmodule
 我设计了三个程序，结合书上的程序进行测试，他们的大致内容如下，具体代码见test文件夹：
 
 ```
-standard		书上的测试程序
-standard2		测试除LB，LBU，SB外的15条指令的正确性
-power2			生成2的次幂，并存在存储器中，主要用于演示
-testls			测试LB，LBU，SB，测试数据和指令混合
+standard        书上的测试程序
+standard2        测试除LB，LBU，SB外的15条指令的正确性
+power2            生成2的次幂，并存在存储器中，主要用于演示
+testls            测试LB，LBU，SB，测试数据和指令混合
 ```
 
 standard2的部分波形图如下，可以查看存储器的变化、状态机中状态的变化和ALU的计算结果等。
