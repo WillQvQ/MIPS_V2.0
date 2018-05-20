@@ -4,12 +4,14 @@ module controller(
     input   logic       clk, reset,
     input   logic [5:0] op, funct,
     input   logic       zero,
-    output  logic       pcen, memwrite, irwrite, regwrite,
+    output  logic       pcen, 
+    output  logic [1:0] memwrite, 
+    output  logic       irwrite, regwrite,
     output  logic       iord, memtoreg, regdst, alusrca,
     output  logic [2:0] alusrcb,
     output  logic [1:0] pcsrc,
     output  logic [2:0] alucontrol,
-    output  logic [1:0] lb,
+    output  logic [1:0] ltype,
     output  logic [4:0] state
 ); 
     logic [2:0] aluop;
@@ -17,7 +19,7 @@ module controller(
     logic       bne; 
     maindec maindec(clk, reset, op, pcwrite, memwrite, 
                 irwrite, regwrite, branch, iord, memtoreg, regdst,
-                alusrca, alusrcb, pcsrc, aluop, bne, lb, state);
+                alusrca, alusrcb, pcsrc, aluop, bne, ltype, state);
     aludec aludec(funct, aluop, alucontrol);
     assign pcen = pcwrite | (branch & zero) | (bne & ~zero);
 endmodule

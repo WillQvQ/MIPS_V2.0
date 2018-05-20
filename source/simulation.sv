@@ -4,7 +4,7 @@ module simulation();
     logic clk;
     logic reset;
     logic [31:0]writedata, dataadr;
-    logic       memwrite;
+    logic [1:0] memwrite;
     logic [31:0]datapc;
     logic [9:0] cnt;
     logic [7:0] pclow;
@@ -27,14 +27,10 @@ module simulation();
                 $display("LOG:Simulation succeeded");
                 $stop;
             end
-            else if (dataadr !== 80) begin
-                $display("LOG:Simulation failed");
-                $stop;
-            end 
         end
-//        cnt = cnt + 1;
-//        if(cnt === 32)
-//            $stop;
+        cnt = cnt + 1;
+        if(cnt === 32)
+            $stop;
     end
 
 endmodule  

@@ -8,7 +8,7 @@ module datapath #(parameter N = 32, I = 16 ,B = 8)(
     input   logic [2:0] alusrcb,
     input   logic [1:0] pcsrc,
     input   logic [2:0] alucontrol,
-    input   logic [1:0] lb,
+    input   logic [1:0] ltype,
     output  logic [5:0] op, funct,
     output  logic       zero,
     output  logic [N-1:0]dataadr, writedata,
@@ -26,8 +26,8 @@ module datapath #(parameter N = 32, I = 16 ,B = 8)(
     logic [N-1:0]   zeroimm; 
     logic [N-1:0]   signimmsh; 
     logic [N-1:0]   wd3, rd1, rd2;
-    logic [N-1:0]   memdata, mbytezext, mbytesext; // LB / LBU
-    logic [B-1:0]   mbyte; // LB / LBU
+    logic [N-1:0]   memdata, mbytezext, mbytesext; 
+    logic [B-1:0]   mbyte;
     assign op = instr[N-1:26];
     assign funct = instr[5:0];
     assign pclow = pc[9:2];
@@ -38,7 +38,7 @@ module datapath #(parameter N = 32, I = 16 ,B = 8)(
                         readdata[7:0], aluout[1:0], mbyte);
     zeroext #(B,N)  lbze(mbyte, mbytezext);
     signext #(B,N)  lbse(mbyte, mbytesext);
-    mux3 #(N)       datamux(readdata, mbytezext, mbytesext, lb, memdata);
+    mux3 #(N)       datamux(readdata, mbytezext, mbytesext, ltype, memdata);
     flopr #(N)      datareg(clk, reset, memdata, data);
     mux2 #(5)       regdstmux(instr[20:16],instr[15:11], regdst, writereg);
     mux2 #(N)       wdmux(aluout, data, memtoreg, wd3);
