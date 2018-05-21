@@ -48,10 +48,10 @@ module datapath #(parameter N = 32, I = 16 ,B = 8)(
     flopr #(N)      wdreg(clk, reset, rd2, writedata);
     signext#(I,N)   signext(instr[15:0], signimm);
     zeroext#(I,N)   zeroext(instr[15:0], zeroimm);
-    sl2             immsh(signimm, signimmsh);
+    sl2 #(N)        immsh(signimm, signimmsh);
     mux2 #(N)       srcamux(pc, rda, alusrca, srca);
     mux5 #(N)       srcbmux(writedata, 32'b100, signimm, signimmsh, zeroimm, alusrcb, srcb);
-    alu             alu(srca, srcb, alucontrol, aluresult, zero);
+    alu  #(N)       alu(srca, srcb, alucontrol, aluresult, zero);
     flopr #(N)      alureg(clk, reset, aluresult, aluout);
     mux3 #(N)       pcmux(aluresult, aluout, {pc[31:28], instr[25:0], 2'b00},pcsrc, pcnext);
 endmodule
