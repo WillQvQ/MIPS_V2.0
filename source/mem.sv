@@ -15,17 +15,17 @@ module mem#(parameter N = 32, L = 256)(
     assign check = RAM[checka];
     always @(posedge clk)
         begin
-        if (memwrite===1)
+        if (memwrite==1)
             RAM[dataadr[N-1:2]] <= writedata;
-        else if (memwrite===2) //B
+        else if (memwrite==2) //B
                 case (dataadr[1:0])
                     2'b11:  RAM[dataadr[N-1:2]][7:0]  <= writedata[7:0];
                     2'b10:  RAM[dataadr[N-1:2]][15:8] <= writedata[7:0];
                     2'b01:  RAM[dataadr[N-1:2]][23:16]<= writedata[7:0];
                     2'b00:  RAM[dataadr[N-1:2]][31:24]<= writedata[7:0];
                 endcase
-        else if (memwrite===3) //H
-            case (dataadr[1])
+        else if (memwrite==3) //H
+                case (dataadr[1])
                     1:  RAM[dataadr[N-1:2]][15:0]  <= writedata[15:0];
                     0:  RAM[dataadr[N-1:2]][31:16] <= writedata[15:0];
                 endcase

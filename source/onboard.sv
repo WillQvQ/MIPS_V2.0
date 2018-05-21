@@ -11,7 +11,7 @@ module onboard(
 	logic clk,CLK380,CLK48,CLK04,CLK1_6,clkrun;
 
 	logic [31:0]writedata, dataadr;
-	logic       memwrite;
+	logic [1:0] memwrite;
 	logic [31:0]readdata;
 	logic [2:0]cnt;
 	logic [3:0]digit;   
@@ -30,7 +30,7 @@ module onboard(
 	assign clk = clkrun & clken;
 	top top(clk, reset, writedata, dataadr, memwrite, readdata, pclow, state,checka,check,addr,memdata);
 	assign showdata = show ? memdata:{addr,check[7:0],pclow,3'b0,stateout};
-	assign data = memwrite?datamem:showdata;
+	assign data = memwrite[0]?datamem:showdata;
 	initial cnt=2'b0;
     initial datamem=32'b0;
     initial clks=8'b0;

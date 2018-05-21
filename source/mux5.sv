@@ -12,6 +12,7 @@ module mux5#(parameter WIDTH = 32)(
             3'b010: mux5_y <= mux5_d2;
             3'b011: mux5_y <= mux5_d3;
             3'b100: mux5_y <= mux5_d4;
+            default:mux5_y <= mux5_d0;
         endcase
     end
 endmodule
